@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R3D: Revisiting 3D Policy Learning</title>
+    <meta name="description" content="R3D proposes a robust transformer-diffusion architecture for scalable 3D policy learning, significantly outperforming state-of-the-art baselines on challenging manipulation benchmarks.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Nav -->
+    <nav class="floating-nav" id="floatingNav">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">R3D</a>
+            <div class="nav-links">
+                <a href="#overview">Overview</a>
+                <a href="#method">Method</a>
+                <a href="#results">Results</a>
+                <a href="#demos">Demos</a>
+                <a href="#citation">Citation</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-effects">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="venue-badge animate-in">
+                <i class="fas fa-award"></i>
+                ECCV 2026
+            </div>
+            <h1 class="hero-title animate-in">
+                <span class="title-accent">R3D</span>: Revisiting 3D Policy Learning
+            </h1>
+            <div class="authors animate-in">
+                <span class="author">Anonymous Authors</span>
+            </div>
+            <div class="affiliations animate-in">
+                <span class="affiliation">Anonymous Institution</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons animate-in">
+                <a href="#" class="btn btn-primary" id="paperBtn">
+                    <i class="fas fa-file-pdf"></i>
+                    Paper
+                </a>
+                <a href="#" class="btn btn-secondary" id="youtubeBtn">
+                    <i class="fab fa-youtube"></i>
+                    Video
+                </a>
+                <a href="#" class="btn btn-secondary" id="githubBtn">
+                    <i class="fab fa-github"></i>
+                    Code
+                </a>
+                <a href="#" class="btn btn-secondary" id="arxivBtn">
+                    <i class="fas fa-book-open"></i>
+                    arXiv
+                </a>
+            </div>
+
+            <!-- Abstract -->
+            <div class="abstract-card animate-in">
+                <h2 class="section-label">Abstract</h2>
+                <p class="abstract-text">
+                    3D policy learning promises superior generalization and cross-embodiment transfer, but progress has been hindered by training instabilities and severe overfitting, precluding the adoption of powerful 3D perception models. In this work, we systematically diagnose these failures, identifying the omission of 3D data augmentation and the adverse effects of Batch Normalization as primary causes. We propose a new architecture coupling a <strong>scalable transformer-based 3D encoder</strong> with a <strong>diffusion decoder</strong>, engineered specifically for stability at scale and designed to leverage large-scale pre-training. Our approach significantly outperforms state-of-the-art 3D baselines on challenging manipulation benchmarks, establishing a new and robust foundation for <strong>scalable 3D imitation learning</strong>.
+                </p>
+            </div>
+        </div>
+        <div class="scroll-indicator animate-in">
+            <div class="scroll-mouse">
+                <div class="scroll-wheel"></div>
+            </div>
+            <span>Scroll to explore</span>
+        </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section" id="overview">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-number">01</span>
+                <h2 class="section-title">Overview</h2>
+            </div>
+            <div class="overview-content">
+                <div class="overview-text animate-in">
+                    <p>
+                        While 2D-centric policies like Diffusion Policy and ACT have achieved impressive results, their reliance on 2D projections of an inherently 3D world introduces fundamental limitations in viewpoint generalization and cross-embodiment skill transfer. 3D policy learning addresses this by reasoning over canonical 3D scene representations, enabling natural multi-view fusion and inherent viewpoint invariance.
+                    </p>
+                    <p>
+                        However, prior 3D policy methods face a <strong>"scaling paradox"</strong>—more powerful 3D backbones paradoxically lead to worse performance. We identify two critical overlooked causes: <strong>Batch Normalization</strong> degrading powerful 3D encoders, and the <strong>omission of 3D data augmentation</strong> causing severe overfitting. By systematically addressing these issues, R3D unlocks the true potential of scaled 3D policy learning.
+                    </p>
+                    <div class="highlight-stats">
+                        <div class="stat-card">
+                            <div class="stat-value">83.8%</div>
+                            <div class="stat-label">RoboTwin Easy Avg.</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">64.8%</div>
+                            <div class="stat-label">RoboTwin Hard Avg.</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">68.7%</div>
+                            <div class="stat-label">Real-World Avg.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pipeline-figure animate-in">
+                    <div class="figure-card">
+                        <img src="assets/images/pipeline.png" alt="R3D Pipeline Overview" loading="lazy">
+                        <p class="figure-caption">
+                            <strong>R3D Pipeline.</strong> Our architecture integrates a scalable transformer-based 3D encoder (PointSAM) with a Diffusion Transformer decoder. The encoder preserves spatial resolution of 3D features, which are conditioned into the decoder via cross-attention for spatially-aware action decoding.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Method Section -->
+    <section class="section section-alt" id="method">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Method</h2>
+            </div>
+
+            <!-- Key Contributions -->
+            <div class="contributions-grid animate-in">
+                <div class="contribution-card">
+                    <div class="contrib-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>BN → LN</h3>
+                    <p>Replacing Batch Normalization with Layer Normalization resolves the scaling paradox, enabling powerful 3D encoders like Uni3D to be effectively trained for policy learning.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contrib-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>3D Data Augmentation</h3>
+                    <p>FPS randomization, point cloud color jitter, and additive noise with dropout stabilize training and significantly mitigate overfitting in 3D policy learning.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contrib-icon">
+                        <i class="fas fa-crosshairs"></i>
+                    </div>
+                    <h3>Spatially-Aware Decoding</h3>
+                    <p>Cross-attention between action queries and dense geometric tokens preserves spatial resolution, enabling precise action predictions for fine-grained manipulation.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contrib-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>3D Pretraining</h3>
+                    <p>Leveraging the encoder structure from 3D segmentation enables pretraining on large-scale datasets (ScanNet, ARKitScenes, PartNeXt), injecting rich geometric priors.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contrib-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Multi-Objective Decoding</h3>
+                    <p>Jointly decoding end-effector poses and joint angles with causal attention masking provides proprioceptive grounding without interfering with primary control.</p>
+                </div>
+                <div class="contribution-card">
+                    <div class="contrib-icon">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </div>
+                    <h3>Dense Feature Conditioning</h3>
+                    <p>Unlike prior methods that collapse 3D features into a global vector, R3D preserves the full spatial resolution of patch tokens for fine-grained geometric reasoning.</p>
+                </div>
+            </div>
+
+            <!-- Decoder Comparison Figure -->
+            <div class="decoder-figure animate-in">
+                <div class="figure-card">
+                    <img src="assets/images/decoder_comparison.png" alt="Decoder Architecture Comparison" loading="lazy">
+                    <p class="figure-caption">
+                        <strong>Decoder Comparison.</strong> (a) DP3 uses a global feature and FiLM conditioning. (b) Our approach preserves dense spatial features and uses cross-attention for spatially-aware action denoising, enabling the model to attend to specific task-relevant regions during diffusion iterations.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="section" id="results">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Results</h2>
+            </div>
+
+            <!-- Sim Benchmark Figure -->
+            <div class="sim-figure animate-in">
+                <div class="figure-card">
+                    <img src="assets/images/sim_benchmark.png" alt="Simulation Benchmark Tasks" loading="lazy">
+                    <p class="figure-caption">
+                        <strong>Simulation Settings.</strong> Point clouds are generated by cropping the table and ground, followed by downsampling to 1024 points. Tasks span bimanual manipulation (RoboTwin 2.0) and single-arm manipulation (ManiSkill2).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Results Tables -->
+            <div class="results-tables">
+                <!-- RoboTwin Easy -->
+                <div class="table-container animate-in">
+                    <h3 class="table-title">RoboTwin 2.0 — Easy Setting</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Beat Hammer</th>
+                                    <th>Move Card</th>
+                                    <th>Turn Switch</th>
+                                    <th>Open Micro.</th>
+                                    <th>Place Shoe</th>
+                                    <th class="highlight-col">Avg.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DP + eVGGT</td>
+                                    <td>17</td>
+                                    <td>4</td>
+                                    <td>29</td>
+                                    <td>69</td>
+                                    <td>9</td>
+                                    <td>25.6</td>
+                                </tr>
+                                <tr>
+                                    <td>Spatial Forcing</td>
+                                    <td>47</td>
+                                    <td>60</td>
+                                    <td>37</td>
+                                    <td>85</td>
+                                    <td>22</td>
+                                    <td>50.2</td>
+                                </tr>
+                                <tr>
+                                    <td>DP3</td>
+                                    <td>72</td>
+                                    <td>68</td>
+                                    <td>46</td>
+                                    <td>61</td>
+                                    <td>58</td>
+                                    <td>61.0</td>
+                                </tr>
+                                <tr>
+                                    <td>RDT</td>
+                                    <td>77</td>
+                                    <td>43</td>
+                                    <td>35</td>
+                                    <td>37</td>
+                                    <td>35</td>
+                                    <td>45.4</td>
+                                </tr>
+                                <tr>
+                                    <td>DP</td>
+                                    <td>42</td>
+                                    <td>47</td>
+                                    <td>36</td>
+                                    <td>5</td>
+                                    <td>23</td>
+                                    <td>30.6</td>
+                                </tr>
+                                <tr>
+                                    <td>ManiFlow</td>
+                                    <td>94</td>
+                                    <td>74</td>
+                                    <td>43</td>
+                                    <td>98</td>
+                                    <td>56</td>
+                                    <td>73.0</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td><strong>Ours</strong></td>
+                                    <td><strong>91</strong></td>
+                                    <td><strong>85</strong></td>
+                                    <td><strong>56</strong></td>
+                                    <td><strong>100</strong></td>
+                                    <td><strong>87</strong></td>
+                                    <td><strong>83.8</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- RoboTwin Hard -->
+                <div class="table-container animate-in">
+                    <h3 class="table-title">RoboTwin 2.0 — Hard Setting</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Beat Hammer</th>
+                                    <th>Lift Pot</th>
+                                    <th>Adjust Bottle</th>
+                                    <th>Burger Fries</th>
+                                    <th>Press Stapler</th>
+                                    <th class="highlight-col">Avg.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ACT + eVGGT</td>
+                                    <td>7</td>
+                                    <td>2</td>
+                                    <td>20</td>
+                                    <td>10</td>
+                                    <td>14</td>
+                                    <td>10.6</td>
+                                </tr>
+                                <tr>
+                                    <td>DP + eVGGT</td>
+                                    <td>18</td>
+                                    <td>14</td>
+                                    <td>52</td>
+                                    <td>26</td>
+                                    <td>20</td>
+                                    <td>26.0</td>
+                                </tr>
+                                <tr>
+                                    <td>DP3</td>
+                                    <td>8</td>
+                                    <td>10</td>
+                                    <td>62</td>
+                                    <td>18</td>
+                                    <td>15</td>
+                                    <td>22.6</td>
+                                </tr>
+                                <tr>
+                                    <td>RDT</td>
+                                    <td>9</td>
+                                    <td>12</td>
+                                    <td>50</td>
+                                    <td>20</td>
+                                    <td>20</td>
+                                    <td>22.2</td>
+                                </tr>
+                                <tr>
+                                    <td>ManiFlow</td>
+                                    <td>31</td>
+                                    <td>65</td>
+                                    <td>96</td>
+                                    <td>72</td>
+                                    <td>44</td>
+                                    <td>61.6</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td><strong>Ours</strong></td>
+                                    <td><strong>37</strong></td>
+                                    <td><strong>67</strong></td>
+                                    <td><strong>98</strong></td>
+                                    <td><strong>95</strong></td>
+                                    <td><strong>27</strong></td>
+                                    <td><strong>64.8</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ManiSkill2 -->
+                <div class="table-container animate-in">
+                    <h3 class="table-title">ManiSkill2 Benchmark</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Pick Cube</th>
+                                    <th>Stack Cube</th>
+                                    <th>PegIns. Grasp</th>
+                                    <th>PegIns. Align</th>
+                                    <th>PegIns. Insert</th>
+                                    <th class="highlight-col">Avg.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DP + SPuNet</td>
+                                    <td>71</td>
+                                    <td>4</td>
+                                    <td>82</td>
+                                    <td>9</td>
+                                    <td>1</td>
+                                    <td>33.4</td>
+                                </tr>
+                                <tr>
+                                    <td>DP + PointNet</td>
+                                    <td>70</td>
+                                    <td>0</td>
+                                    <td>83</td>
+                                    <td>16</td>
+                                    <td>1</td>
+                                    <td>34.0</td>
+                                </tr>
+                                <tr>
+                                    <td>ACT + PonderV2</td>
+                                    <td>87</td>
+                                    <td>35</td>
+                                    <td>65</td>
+                                    <td>23</td>
+                                    <td>2</td>
+                                    <td>42.4</td>
+                                </tr>
+                                <tr>
+                                    <td>DP3</td>
+                                    <td>57</td>
+                                    <td>14</td>
+                                    <td>41</td>
+                                    <td>3</td>
+                                    <td>0</td>
+                                    <td>23.0</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td><strong>Ours</strong></td>
+                                    <td><strong>97</strong></td>
+                                    <td><strong>24</strong></td>
+                                    <td><strong>97</strong></td>
+                                    <td><strong>75</strong></td>
+                                    <td><strong>21</strong></td>
+                                    <td><strong>55.2</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Real-World Results -->
+                <div class="table-container animate-in">
+                    <h3 class="table-title">Real-World Experiments</h3>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>DP</th>
+                                    <th>Pi0</th>
+                                    <th>DP3</th>
+                                    <th>ManiFlow</th>
+                                    <th class="highlight-col">Ours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Place Kettle</td>
+                                    <td>64</td>
+                                    <td>46</td>
+                                    <td>40</td>
+                                    <td>36</td>
+                                    <td class="highlight-cell"><strong>76</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Open Drawer</td>
+                                    <td>46</td>
+                                    <td>48</td>
+                                    <td>28</td>
+                                    <td>46</td>
+                                    <td class="highlight-cell"><strong>64</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Fold Towel</td>
+                                    <td>36</td>
+                                    <td>62</td>
+                                    <td>54</td>
+                                    <td>60</td>
+                                    <td class="highlight-cell"><strong>66</strong></td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td><strong>Average</strong></td>
+                                    <td>48.7</td>
+                                    <td>52.0</td>
+                                    <td>40.7</td>
+                                    <td>47.3</td>
+                                    <td><strong>68.7</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Videos Section -->
+    <section class="section section-alt" id="demos">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-number">04</span>
+                <h2 class="section-title">Real-World Demos</h2>
+            </div>
+            <p class="section-subtitle animate-in">
+                We evaluate R3D on three real-world tasks using an xArm6 robot with two Intel RealSense D435 cameras. Each task tests different aspects of 3D spatial understanding: pose-constrained pick-and-place, articulated object manipulation, and soft-body manipulation.
+            </p>
+
+            <div class="video-grid">
+                <div class="video-card animate-in">
+                    <div class="video-wrapper">
+                        <video autoplay loop muted playsinline>
+                            <source src="video/ours-task1-success-3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Task 1: Place Kettle on Stove</h3>
+                        <p>A pose-constrained pick-and-place task requiring grasping at the thin handle and placing with strictly defined spatial poses. Tests fine-grained positional control.</p>
+                        <div class="video-stat">
+                            <span class="stat-badge success">76% Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card animate-in">
+                    <div class="video-wrapper">
+                        <video autoplay loop muted playsinline>
+                            <source src="video/ours-task2-success-4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Task 2: Open Drawer</h3>
+                        <p>An articulated-object manipulation task that challenges the policy's understanding of rigid body dynamics and spatial reasoning for handle grasping.</p>
+                        <div class="video-stat">
+                            <span class="stat-badge success">64% Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-card animate-in">
+                    <div class="video-wrapper">
+                        <video autoplay loop muted playsinline>
+                            <source src="video/ours-task3-success-2.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Task 3: Fold Towel</h3>
+                        <p>A soft-body manipulation task testing the policy's ability to handle deformable objects, requiring robust spatial understanding and adaptive motion planning.</p>
+                        <div class="video-stat">
+                            <span class="stat-badge success">66% Success Rate</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation Section -->
+    <section class="section" id="citation">
+        <div class="container">
+            <div class="section-header animate-in">
+                <span class="section-number">05</span>
+                <h2 class="section-title">Citation</h2>
+            </div>
+            <div class="citation-card animate-in">
+                <div class="citation-header">
+                    <span>BibTeX</span>
+                    <button class="copy-btn" id="copyBibtex" title="Copy to clipboard">
+                        <i class="fas fa-copy"></i>
+                        <span>Copy</span>
+                    </button>
+                </div>
+                <pre class="citation-code" id="bibtexCode">@inproceedings{r3d2026,
+  title     = {R3D: Revisiting 3D Policy Learning},
+  author    = {Anonymous Authors},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="footer-logo">R3D</span>
+                    <p>Revisiting 3D Policy Learning</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" id="footerPaper"><i class="fas fa-file-pdf"></i> Paper</a>
+                    <a href="#" id="footerYoutube"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="#" id="footerGithub"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <p class="footer-copyright">© 2026 R3D. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
