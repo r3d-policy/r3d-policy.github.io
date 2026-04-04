@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===== Placeholder link handling =====
-    const placeholderLinks = ['paperBtn', 'youtubeBtn', 'githubBtn', 'arxivBtn'];
+    const placeholderLinks = ['youtubeBtn', 'githubBtn', 'arxivBtn'];
     placeholderLinks.forEach(id => {
         const el = document.getElementById(id);
         if (el) {
