@@ -1,0 +1,72 @@
+\begin{minipage}[]{0.48\textwidth}
+    \centering
+    \caption{Different encoder sizes (using RoboTwin 2.0~\cite{chen2025robotwin} default 1024 points).}
+    % \vspace{-1em}
+    \label{tab:encoder_size_comparison}
+    % \vspace{2pt}
+    \resizebox{\linewidth}{!}{
+        \renewcommand{\arraystretch}{1.1} % 右表保持紧凑
+        \begin{tabular}{l ccc}
+            \toprule
+            Tasks & \shortstack[c]{tiny \\ (53MB)} & \shortstack[c]{small \\ (115MB)} & \shortstack[c]{base \\ (366MB)} \\
+            \midrule
+            Move Playingcard   & 85 & \cellcolor{myblue}\textbf{92} & 83 \\
+            Turn Switch        & \cellcolor{myblue}\textbf{56} & 55 & 50 \\
+            Place Shoe         & \cellcolor{myblue}\textbf{87} & 68 & 70 \\
+            Open Microwave     & \cellcolor{myblue}\textbf{100} & 93 & 77 \\
+            Beat Block Hammer  & \cellcolor{myblue}\textbf{91} & 76 & 85 \\
+            \midrule
+            \textbf{Average}   & \cellcolor{myblue}\textbf{83.8} & 76.8 & 73.0 \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{minipage}
+
+
+\begin{table}[b]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2} % 稍微增加行高，方便左侧内容居中对齐时更美观
+    \setlength{\tabcolsep}{4pt}
+
+    % 左侧表格：由于列数少，强制填满 0.48\textwidth 会显得更大
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \caption{Encoder size and number of demonstrations used in training (averaged on 5 RoboTwin 2.0~\cite{chen2025robotwin} ``Easy'' tasks).}
+        \label{tab:supptab0}
+        \resizebox{\linewidth}{!}{
+            \begin{tabular}{l|ccc}
+                \toprule
+                Encoder Size & 50 demos & 100 demos & 200 demos \\
+                \midrule
+                \makecell[l]{~~~~~~~~Ours \\ (PointSAM-tiny)}  & \cellcolor{myblue}\textbf{83.8} & \cellcolor{myblue}\textbf{95.3} & \cellcolor{myblue}\textbf{97.8} \\
+                \makecell[l]{~~~~~~~~Ours \\ (PointSAM-small)} & 76.8 & 89.0 & 92.4 \\
+                \makecell[l]{~~~~~~~~Ours \\ (PointSAM-base)}  & 73.0 & 86.5 & 88.2 \\
+                \bottomrule
+                % 补偿右表多出的行数高度
+            \end{tabular}
+        }
+    \end{minipage}
+    \hfill
+    % 右侧表格：严格等宽
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \caption{Encoder size (8192 points).}
+        \label{tab:supptab1}
+        \resizebox{\linewidth}{!}{
+            \begin{tabular}{l|ccc}
+                \toprule
+                \shortstack[l]{Encoder Size} & \shortstack[c]{tiny \\ (53MB)} & \shortstack[c]{small \\ (115MB)} & \shortstack[c]{base \\ (366MB)} \\
+                \midrule
+                Move Playingcard   & 65 & \cellcolor{myblue}\textbf{87} & 72 \\
+                Turn Switch        & 47 & 56 & \cellcolor{myblue}\textbf{64} \\
+                Place Shoe         & 75 & 79 & \cellcolor{myblue}\textbf{85} \\
+                Open Microwave     & 79 & \cellcolor{myblue}\textbf{98} & 92 \\
+                Beat Block Hammer  & 74 & \cellcolor{myblue}\textbf{89} & 88 \\
+                \midrule
+                Average            & 68.0 & \cellcolor{myblue}\textbf{81.8} & 80.2 \\
+                \bottomrule
+            \end{tabular}
+        }
+    \end{minipage}
+\end{table}

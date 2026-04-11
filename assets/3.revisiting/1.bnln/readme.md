@@ -1,0 +1,6 @@
+\subsection{Overcoming the Scaling Paradox: From BN to LN}
+Prior work such as DP3~\cite{ze20243d} suggests that lightweight PointNet~\cite{qi2017pointnet} backbones perform better than more powerful ones. To investigate this ``scaling paradox'', we replace the PointNet backbone with a high-capacity encoder used in Uni3D~\cite{zhou2023uni3d}. This architecture employs Farthest Point Sampling (FPS) to sample center points and $k$-Nearest Neighbors ($k$-NN) to extract neighborhood patches, which are then processed by a Transformer initialized from 2D Vision Transformers~\cite{dosovitskiy2020image}.
+
+Our initial experiments confirm the findings in DP3: naively adopting this stronger backbone leads to a significant performance degradation. However, further investigation identifies \emph{Batch Normalization} (BN) as the primary culprit. BN layers often struggle with the high variance and small batch sizes typical of imitation learning. 
+
+To validate this insight, we compare four configurations: DP3 with PointNet (BN vs. LN) and DP3 with Uni3D (BN vs. LN). As shown in Tab.~\ref{tab:newtab0}, replacing BN with \emph{Layer Normalization} (LN) allows the Uni3D backbone to not only become trainable but to significantly outperform PointNet. Notably, LN doesn't degrade PointNet's performance, suggesting it's a more robust default for 3D policies.

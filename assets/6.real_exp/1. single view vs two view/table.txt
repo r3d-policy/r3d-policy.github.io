@@ -1,0 +1,25 @@
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.2}
+    \caption{\textbf{Point Cloud from Single Camera View vs. Two Camera Views.}}
+    \label{tab:single_view}
+    % 使用 resizebox 将表格宽度调整为页面宽度
+    \resizebox{\textwidth}{!}{
+        \setlength{\tabcolsep}{3.3pt}
+        \begin{tabular}{lcccccccccc}
+            \toprule
+            \multirow{2}{*}{\textbf{Task}} & \multicolumn{2}{c}{DP~\cite{chi2024diffusionpolicyvisuomotorpolicy}} & \multicolumn{2}{c}{Pi0~\cite{black2024pi_0}} & \multicolumn{2}{c}{DP3~\cite{ze20243d}} & \multicolumn{2}{c}{ManiFlow~\cite{yan2025maniflowgeneralrobotmanipulation}} & \multicolumn{2}{c}{Ours} \\
+            \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-9} \cmidrule(lr){10-11}
+            & Single & Two & Single & Two & Single & Two & Single & Two & Single & Two \\
+            \midrule
+            \textit{Place Kettle}    & 28 & 64 & - & 46 & 18 & 40 & 20 & 36 & \cellcolor{colorSingle}\textbf{40} & \cellcolor{colorTwo}\textbf{76} \\
+            \textit{Open Drawer}     & 36 & 46 & - & 48 & 12 & 28 & 40 & 46 & \cellcolor{colorSingle}\textbf{52} & \cellcolor{colorTwo}\textbf{64} \\
+            \textit{Fold Towel}      & 28 & 36 & - & 62 & 48 & 54 & 54 & 60 & \cellcolor{colorSingle}\textbf{62} & \cellcolor{colorTwo}\textbf{66} \\
+            \midrule
+            \textbf{Average} & \textbf{30.7} & \textbf{48.7} & \textbf{-} & \textbf{52.0} & \textbf{26.0} & \textbf{40.7} & \textbf{38.0} & \textbf{47.3} & \cellcolor{colorSingle}\textbf{51.3} & \cellcolor{colorTwo}\textbf{68.7} \\
+            \bottomrule
+        \end{tabular}
+    }
+    \vspace{-0.5em}
+\end{table}

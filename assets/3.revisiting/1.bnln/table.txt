@@ -1,0 +1,23 @@
+\begin{minipage}[]{0.48\textwidth} % 稍微缩小宽度比例确保不重叠
+% \vspace{-1em}
+    \centering
+    \caption{\textbf{Lessons in BN vs. LN.} \\We use DP3\cite{ze20243d} default hyperparameters for training.}
+    % \vspace{-1em}
+    \label{tab:newtab0}
+    % \vspace{2pt} % 统一标题与表格的间距
+    \resizebox{\linewidth}{!}{
+        % 通过大幅增加 arraystretch 来补偿行数差（4行 vs 6行）
+        % 这里的 1.55 是根据 (6行/4行) 的比例并考虑表头高度微调得出的
+        \renewcommand{\arraystretch}{1.55} 
+        \begin{tabular}{l|ccc|c}
+            \toprule
+            Method & \shortstack{Beat \\ Hammer} & \shortstack{Move \\ Card} & \shortstack{Place \\ Shoe} & \textbf{Avg.} \\
+            \midrule
+            DP3 (PointNet+BN) & 0 & 3 & 0 & 1.0 \\
+            DP3 (PointNet+LN) & 79 & 57 & 43 & 59.6 \\
+            DP3 (Uni3D+BN)     & 0 & 0 & 0  & 0.0 \\
+            DP3 (Uni3D+LN)     & 86 & 60 & 48 & 64.7 \\
+            \bottomrule
+        \end{tabular}
+    }
+\end{minipage}

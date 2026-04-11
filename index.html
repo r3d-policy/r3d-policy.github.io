@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R3D: Revisiting 3D Policy Learning</title>
-    <meta name="description" content="R3D proposes a robust transformer-diffusion architecture for scalable 3D policy learning, significantly outperforming state-of-the-art baselines on challenging manipulation benchmarks.">
+    <meta name="description"
+        content="R3D proposes a robust transformer-diffusion architecture for scalable 3D policy learning, significantly outperforming state-of-the-art baselines on challenging manipulation benchmarks.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Google+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <!-- Hero Section -->
+    <!-- ===================== 1. TOP VIDEO BANNER ===================== -->
+    <div class="top-video-banner" id="top-banner">
+        <video autoplay loop muted playsinline id="topVideo" style="width:100%;display:block;">
+            <source src="assets/1.top-video/top video.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- ===================== HERO ===================== -->
     <section class="hero" id="hero">
         <div class="container">
             <h1 class="paper-title">
@@ -36,149 +48,323 @@
                 <span class="author"><a href="#">Jiayuan Gu</a><sup>†2</sup></span>
             </div>
 
-            <div class="affiliations" style="margin-top: 15px; text-align: center; font-size: 1.1rem; color: var(--text-secondary);">
-                <span class="affiliation"><sup>1</sup>Zhejiang University</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="affiliation"><sup>2</sup>ShanghaiTech University</span>
+            <div class="affiliations">
+                <span><sup>1</sup>Zhejiang University</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span><sup>2</sup>ShanghaiTech University</span>
             </div>
-            
-            <div class="notes" style="margin-top: 10px; text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 28px;">
+            <div class="notes">
                 <span><sup>*</sup>Equal Contribution</span>&nbsp;&nbsp;&nbsp;&nbsp;
                 <span><sup>†</sup>Corresponding Author</span>
             </div>
 
-            <!-- Action Buttons -->
             <div class="action-buttons">
                 <a href="R3D_arxiv.pdf" class="pill-btn" id="paperBtn" target="_blank">
-                    <i class="fas fa-file-pdf"></i>
-                    <span>Paper</span>
+                    <i class="fas fa-file-pdf"></i><span>Paper</span>
                 </a>
                 <a href="#" class="pill-btn" id="arxivBtn">
-                    <i class="ai ai-arxiv"></i>
-                    <span>arXiv</span>
+                    <i class="ai ai-arxiv"></i><span>arXiv</span>
                 </a>
                 <a href="#" class="pill-btn" id="youtubeBtn">
-                    <i class="fab fa-youtube"></i>
-                    <span>Video</span>
+                    <i class="fab fa-youtube"></i><span>Video</span>
                 </a>
                 <a href="#" class="pill-btn" id="githubBtn">
-                    <i class="fab fa-github"></i>
-                    <span>Code</span>
+                    <i class="fab fa-github"></i><span>Code</span>
                 </a>
-                <a href="https://huggingface.co/datasets/eddie-cui/r3d" class="pill-btn" id="datasetBtn" target="_blank">
-                    <i class="fas fa-database"></i>
-                    <span>Dataset</span>
+                <a href="https://huggingface.co/datasets/eddie-cui/r3d" class="pill-btn" id="datasetBtn"
+                    target="_blank">
+                    <i class="fas fa-database"></i><span>Dataset</span>
                 </a>
             </div>
 
-            <!-- TL;DR -->
             <div class="tldr-box">
-                <strong>TL;DR:</strong> We diagnose why scaling 3D policy learning fails (Batch Normalization + missing data augmentation), and propose a transformer-diffusion architecture that significantly outperforms SOTA 3D baselines on simulation and real-world manipulation benchmarks.
+                <strong>TL;DR:</strong> We diagnose why scaling 3D policy learning fails — Batch Normalization and
+                missing data augmentation — and propose a transformer-diffusion architecture that significantly
+                outperforms SOTA baselines on simulation and real-world benchmarks.
             </div>
         </div>
     </section>
 
-    <!-- Teaser / Pipeline Figure -->
-    <section class="section" id="pipeline">
+    <!-- ===================== 2. MAIN VIDEO ===================== -->
+    <section class="section" id="main-video">
         <div class="container">
-            <div class="figure-block">
-                <img src="assets/images/pipeline.png" alt="R3D Pipeline Overview">
-                <p class="figure-caption">
-                    <strong>Figure 1. R3D Pipeline.</strong> Our architecture integrates a scalable transformer-based 3D encoder (PointSAM) with a Diffusion Transformer decoder. The encoder preserves spatial resolution of 3D features, which are conditioned into the decoder via cross-attention for spatially-aware action decoding. An auxiliary end-effector prediction task provides additional proprioceptive grounding.
-                </p>
+            <div class="main-video-wrapper">
+                <video controls id="mainVideo" preload="metadata">
+                    <source src="assets/2.video/video.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
     </section>
 
-    <!-- Abstract -->
-    <section class="section" id="abstract">
+    <!-- ===================== ABSTRACT ===================== -->
+    <section class="section section-tight" id="abstract">
         <div class="container narrow">
             <h2 class="section-title">Abstract</h2>
             <p class="body-text">
-                3D policy learning promises superior generalization and cross-embodiment transfer, but progress has been hindered by training instabilities and severe overfitting, precluding the adoption of powerful 3D perception models. In this work, we systematically diagnose these failures, identifying the omission of <strong>3D data augmentation</strong> and the adverse effects of <strong>Batch Normalization</strong> as primary causes. We propose a new architecture coupling a <strong>scalable transformer-based 3D encoder</strong> with a <strong>diffusion decoder</strong>, engineered specifically for stability at scale and designed to leverage large-scale pre-training. Our approach significantly outperforms state-of-the-art 3D baselines on challenging manipulation benchmarks, establishing a new and robust foundation for scalable 3D imitation learning.
+                3D policy learning promises superior generalization and cross-embodiment transfer, but training
+                instabilities and severe overfitting have prevented the adoption of powerful 3D models. We
+                systematically diagnose these failures — identifying <strong>missing 3D data augmentation</strong> and
+                <strong>Batch Normalization</strong> as primary causes — and propose a scalable
+                <strong>transformer-based 3D encoder</strong> coupled with a <strong>Diffusion Transformer
+                    decoder</strong>. Our method significantly outperforms state-of-the-art baselines on challenging
+                manipulation benchmarks.
             </p>
         </div>
     </section>
 
     <hr class="section-divider">
 
-    <!-- Key Insights -->
-    <section class="section" id="insights">
-        <div class="container narrow">
-            <h2 class="section-title">Key Insights</h2>
-            <p class="body-text">
-                Prior 3D policy methods face a <em>"scaling paradox"</em>—more powerful 3D backbones paradoxically lead to worse performance. We identify two critical overlooked causes and propose actionable training principles:
-            </p>
-
-            <div class="insight-grid">
-                <div class="insight-card">
-                    <div class="insight-number">1</div>
-                    <h3>BN → Layer Norm</h3>
-                    <p>Batch Normalization degrades powerful 3D encoders under the small batch sizes typical of imitation learning. Replacing BN with Layer Normalization resolves the scaling paradox, enabling encoders like Uni3D to be effectively trained.</p>
-                </div>
-                <div class="insight-card">
-                    <div class="insight-number">2</div>
-                    <h3>3D Data Augmentation</h3>
-                    <p>The common implementation of DP3 omits data augmentation, causing severe overfitting. Our pipeline of FPS randomization, point cloud color jitter, and additive noise with dropout stabilizes training and significantly improves success rates.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr class="section-divider">
-
-    <!-- Method / Architecture -->
-    <section class="section" id="method">
+    <!-- ===================== 2.5 MOTIVATION ===================== -->
+    <section class="section" id="motivation">
         <div class="container">
-            <h2 class="section-title">Architecture Design</h2>
+            <h2 class="section-title">Motivation</h2>
             <p class="body-text centered">
-                Building on these insights, R3D integrates a high-capacity transformer-based 3D encoder with a Diffusion Transformer decoder, featuring several key design choices:
+                A persistent "scaling paradox" plagues 3D policy learning: more powerful backbones lead to
+                <em>worse</em> results. We systematically investigate why, and identify two overlooked root causes.
             </p>
-
-            <div class="method-grid">
-                <div class="method-card">
-                    <div class="method-icon">🔍</div>
-                    <h3>Spatially-Aware Decoding</h3>
-                    <p>Unlike DP3's global feature + FiLM conditioning, our decoder performs cross-attention directly between action queries and <em>dense</em> geometric tokens, preserving spatial resolution for precise manipulation.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">🧠</div>
-                    <h3>3D Encoder Pretraining</h3>
-                    <p>Leveraging the encoder structure from PointSAM, we pretrain on large-scale 3D segmentation datasets (ScanNet, ARKitScenes, PartNeXt), injecting rich geometric priors that accelerate convergence.</p>
-                </div>
-                <div class="method-card">
-                    <div class="method-icon">🤖</div>
-                    <h3>Multi-Objective Decoding</h3>
-                    <p>We jointly decode end-effector poses and joint angles with causal attention masking, providing proprioceptive grounding without interfering with primary joint control.</p>
-                </div>
-            </div>
-
-            <!-- Decoder Comparison Figure -->
-            <div class="figure-block" style="margin-top: 48px;">
-                <img src="assets/images/decoder_comparison.png" alt="Decoder Architecture Comparison">
-                <p class="figure-caption">
-                    <strong>Figure 2. Decoder Comparison.</strong> (a) DP3 uses a global feature and FiLM conditioning for the denoising process. (b) Our approach preserves dense spatial features and uses cross-attention for spatially-aware action denoising, enabling the model to attend to specific task-relevant regions during diffusion iterations.
-                </p>
+            <div class="main-video-wrapper" style="margin-top: 28px;">
+                <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                    <source src="assets/2.5 motivation/vis.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
     </section>
 
     <hr class="section-divider">
 
-    <!-- Results -->
-    <section class="section" id="results">
+    <!-- ===================== 3. REVISITING ===================== -->
+    <section class="section" id="revisiting">
         <div class="container">
-            <h2 class="section-title">⚡ Simulation Results</h2>
+            <h2 class="section-title">Revisiting 3D Policy Learning</h2>
 
-            <div class="figure-block">
-                <img src="assets/images/sim_benchmark.png" alt="Simulation Benchmark Tasks">
+            <!-- 3.1 BN vs LN -->
+            <div class="subsection" id="bnln">
+                <h3 class="subsection-title">Overcoming the Scaling Paradox: From Batch Norm to Layer Norm</h3>
+
+                <p class="body-text" style="margin-bottom: 16px;">
+                    Naively replacing PointNet with a stronger Uni3D encoder causes severe performance degradation. We
+                    trace the root cause to <em>Batch Normalization</em> (BN), which struggles under the small batch
+                    sizes typical in imitation learning. Switching to <em>Layer Normalization</em> (LN) makes Uni3D not
+                    only trainable, but significantly better than PointNet. LN is a more robust default for 3D policies.
+                </p>
+                <div class="table-block">
+                    <h4 class="table-title">BN vs. LN <span class="table-subtitle">Success Rate (%)</span></h4>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Beat Hammer</th>
+                                    <th>Move Card</th>
+                                    <th>Place Shoe</th>
+                                    <th>Avg.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>DP3 (PointNet+BN)</td>
+                                    <td>0</td>
+                                    <td>3</td>
+                                    <td>0</td>
+                                    <td>1.0</td>
+                                </tr>
+                                <tr>
+                                    <td>DP3 (PointNet+LN)</td>
+                                    <td>79</td>
+                                    <td>57</td>
+                                    <td>43</td>
+                                    <td>59.6</td>
+                                </tr>
+                                <tr>
+                                    <td>DP3 (Uni3D+BN)</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0.0</td>
+                                </tr>
+                                <tr class="best-row">
+                                    <td><strong>DP3 (Uni3D+LN)</strong></td>
+                                    <td><strong>86</strong></td>
+                                    <td><strong>60</strong></td>
+                                    <td><strong>48</strong></td>
+                                    <td><strong>64.7</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3.2 Data Augmentation -->
+            <div class="subsection" id="dataug" style="margin-top: 52px;">
+                <h3 class="subsection-title">Mitigating Overfitting via 3D Data Augmentation</h3>
+
+                <div class="side-by-side" style="align-items: flex-start;">
+                    <!-- Left: figure -->
+                    <div class="side-figure">
+                        <img src="assets/3.revisiting/2.data aug/data-aug131_cropped.png"
+                            alt="Data Augmentation Learning Curves">
+                        <p class="figure-caption" style="text-align:left; padding:0;">Without augmentation, success
+                            rates decline as training progresses. Our pipeline stabilizes training and significantly
+                            boosts generalization.</p>
+                    </div>
+                    <!-- Right: 3 strategies -->
+                    <div class="side-text">
+                        <p class="body-text" style="margin-bottom: 14px;">3D policy training is prone to overfitting. We
+                            introduce a three-part augmentation pipeline:</p>
+                        <div class="aug-list">
+                            <div class="aug-item">
+                                <span class="aug-num">1</span>
+                                <div>
+                                    <strong>FPS Randomization</strong>
+                                    <p>Randomize point order each step to prevent over-reliance on deterministic
+                                        sampling order.</p>
+                                </div>
+                            </div>
+                            <div class="aug-item">
+                                <span class="aug-num">2</span>
+                                <div>
+                                    <strong>Color Jitter</strong>
+                                    <p>Random brightness, contrast, and saturation variations on RGB channels of the
+                                        point cloud.</p>
+                                </div>
+                            </div>
+                            <div class="aug-item">
+                                <span class="aug-num">3</span>
+                                <div>
+                                    <strong>Noise & Dropout</strong>
+                                    <p>Gaussian noise on coordinates and proprioception, plus random point dropout for
+                                        robustness to incomplete inputs.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== 4. IMPROVING ARCHITECTURE ===================== -->
+    <section class="section" id="improving">
+        <div class="container">
+            <h2 class="section-title">Improving 3D Policy Architecture</h2>
+
+            <!-- Architecture Video -->
+            <div class="main-video-wrapper" style="margin-bottom: 32px;">
+                <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                    <source src="assets/4.improving/arch.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- Pipeline full width -->
+            <div class="figure-block" style="margin-top: 24px;">
+                <img src="assets/4.improving/pipeline.png" alt="R3D Pipeline Architecture">
                 <p class="figure-caption">
-                    <strong>Figure 3. Simulation Settings.</strong> Point clouds are generated by cropping the table and ground, followed by downsampling to 1024 points. We evaluate on RoboTwin 2.0 (bimanual) and ManiSkill2 (single-arm) benchmarks.
+                    <strong>Pipeline.</strong> A point cloud encoder (pre-trained on 3D segmentation) outputs dense
+                    spatial tokens, which the Diffusion Transformer decoder attends to via cross-attention.
+                </p>
+            </div>
+            <!-- Decoder comparison full width -->
+            <div class="figure-block">
+                <img src="assets/4.improving/decoder_comparison.png" alt="Decoder Comparison">
+                <p class="figure-caption">
+                    <strong>Decoder comparison.</strong> DP3 collapses features to a global vector and uses FiLM
+                    conditioning. Ours preserves dense spatial tokens and uses cross-attention for spatially-aware
+                    denoising.
                 </p>
             </div>
 
-            <!-- RoboTwin Easy -->
-            <div class="table-block">
-                <h3 class="table-title">RoboTwin 2.0 — Easy Setting <span class="table-subtitle">Success Rate (%)</span></h3>
+            <!-- Key Insights -->
+            <div class="method-grid" style="margin-top: 36px;">
+                <div class="method-card">
+                    <h3>Spatially-Aware Decoding</h3>
+                    <p>Cross-attention between action queries and dense geometric tokens preserves spatial resolution
+                        for precise manipulation — unlike DP3's global feature + FiLM.</p>
+                </div>
+                <div class="method-card">
+                    <h3>3D Encoder Pretraining</h3>
+                    <p>Pretrain on ScanNet, ARKitScenes, and PartNeXt via the PointSAM architecture, injecting geometric
+                        priors that accelerate convergence and improve robustness.</p>
+                </div>
+                <div class="method-card">
+                    <h3>Multi-Objective Decoding</h3>
+                    <p>Jointly decode end-effector poses and joint angles using causal attention masking, providing
+                        proprioceptive grounding without degrading primary joint control.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== 5. SIMULATION EXPERIMENTS ===================== -->
+    <section class="section" id="sim-exp">
+        <div class="container">
+            <h2 class="section-title">Simulation Experiments</h2>
+            <p class="body-text centered">
+                Evaluated on RoboTwin 2.0 (bimanual, 50 demos per task, 1024-point clouds) and ManiSkill2 (single-arm,
+                1000 demos). We outperform 2D, 2.5D, and 3D baselines across all benchmarks.
+            </p>
+
+            <!-- Sim benchmark main figure -->
+            <div class="figure-block" style="margin-top: 28px;">
+                <img src="assets/5.sim_exp/sim_benchmark.png" alt="Simulation Benchmark Tasks">
+                <p class="figure-caption">
+                    <strong>Simulation settings.</strong> Point clouds are obtained by cropping the table/ground and
+                    downsampling to 1024 points.
+                </p>
+            </div>
+
+            <!-- Easy task videos -->
+            <h3 class="subsection-title" style="margin-top: 36px;">RoboTwin 2.0 — Easy Setting</h3>
+            <div class="video-grid-5">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/easy-hammer.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Beat Block Hammer</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/easy-card.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Move Card Away</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/easy-turn.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Turn Switch</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/easy-open.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Open Microwave</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/easy-shoe.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Place Shoe</p>
+                </div>
+            </div>
+
+            <!-- RoboTwin Easy Table -->
+            <div class="table-block" style="margin-top: 20px;">
+                <h4 class="table-title">RoboTwin 2.0 — Easy <span class="table-subtitle">Success Rate (%)</span></h4>
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -193,21 +379,122 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>DP + eVGGT</td><td>17</td><td>4</td><td>29</td><td>69</td><td>9</td><td>25.6</td></tr>
-                            <tr><td>Spatial Forcing</td><td>47</td><td>60</td><td>37</td><td>85</td><td>22</td><td>50.2</td></tr>
-                            <tr><td>DP3</td><td>72</td><td>68</td><td>46</td><td>61</td><td>58</td><td>61.0</td></tr>
-                            <tr><td>RDT</td><td>77</td><td>43</td><td>35</td><td>37</td><td>35</td><td>45.4</td></tr>
-                            <tr><td>DP</td><td>42</td><td>47</td><td>36</td><td>5</td><td>23</td><td>30.6</td></tr>
-                            <tr><td>ManiFlow</td><td>94</td><td>74</td><td>43</td><td>98</td><td>56</td><td>73.0</td></tr>
-                            <tr class="best-row"><td><strong>Ours</strong></td><td><strong>91</strong></td><td><strong>85</strong></td><td><strong>56</strong></td><td><strong>100</strong></td><td><strong>87</strong></td><td><strong>83.8</strong></td></tr>
+                            <tr>
+                                <td>DP + eVGGT</td>
+                                <td>17</td>
+                                <td>4</td>
+                                <td>29</td>
+                                <td>69</td>
+                                <td>9</td>
+                                <td>25.6</td>
+                            </tr>
+                            <tr>
+                                <td>Spatial Forcing</td>
+                                <td>47</td>
+                                <td>60</td>
+                                <td>37</td>
+                                <td>85</td>
+                                <td>22</td>
+                                <td>50.2</td>
+                            </tr>
+                            <tr>
+                                <td>DP3</td>
+                                <td>72</td>
+                                <td>68</td>
+                                <td>46</td>
+                                <td>61</td>
+                                <td>58</td>
+                                <td>61.0</td>
+                            </tr>
+                            <tr>
+                                <td>RDT</td>
+                                <td>77</td>
+                                <td>43</td>
+                                <td>35</td>
+                                <td>37</td>
+                                <td>35</td>
+                                <td>45.4</td>
+                            </tr>
+                            <tr>
+                                <td>DP</td>
+                                <td>42</td>
+                                <td>47</td>
+                                <td>36</td>
+                                <td>5</td>
+                                <td>23</td>
+                                <td>30.6</td>
+                            </tr>
+                            <tr>
+                                <td>ManiFlow</td>
+                                <td>94</td>
+                                <td>74</td>
+                                <td>43</td>
+                                <td>98</td>
+                                <td>56</td>
+                                <td>73.0</td>
+                            </tr>
+                            <tr class="best-row">
+                                <td><strong>Ours</strong></td>
+                                <td>91</td>
+                                <td><strong>85</strong></td>
+                                <td><strong>56</strong></td>
+                                <td><strong>100</strong></td>
+                                <td><strong>87</strong></td>
+                                <td><strong>83.8</strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- RoboTwin Hard -->
-            <div class="table-block">
-                <h3 class="table-title">RoboTwin 2.0 — Hard Setting <span class="table-subtitle">Success Rate (%)</span></h3>
+            <!-- Hard task videos -->
+            <h3 class="subsection-title" style="margin-top: 36px;">RoboTwin 2.0 — Hard Setting</h3>
+            <div class="video-grid-5">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/hard-hammer.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Beat Block Hammer</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/hard-pot.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Lift Pot</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/hard-adjust.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Adjust Bottle</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/hard-burger.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Burger Fries</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/hard-press.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Press Stapler</p>
+                </div>
+            </div>
+
+            <!-- RoboTwin Hard Table -->
+            <div class="table-block" style="margin-top: 20px;">
+                <h4 class="table-title">RoboTwin 2.0 — Hard <span class="table-subtitle">Success Rate (%)</span></h4>
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -222,20 +509,95 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>ACT + eVGGT</td><td>7</td><td>2</td><td>20</td><td>10</td><td>14</td><td>10.6</td></tr>
-                            <tr><td>DP + eVGGT</td><td>18</td><td>14</td><td>52</td><td>26</td><td>20</td><td>26.0</td></tr>
-                            <tr><td>DP3</td><td>8</td><td>10</td><td>62</td><td>18</td><td>15</td><td>22.6</td></tr>
-                            <tr><td>RDT</td><td>9</td><td>12</td><td>50</td><td>20</td><td>20</td><td>22.2</td></tr>
-                            <tr><td>ManiFlow</td><td>31</td><td>65</td><td>96</td><td>72</td><td>44</td><td>61.6</td></tr>
-                            <tr class="best-row"><td><strong>Ours</strong></td><td><strong>37</strong></td><td><strong>67</strong></td><td><strong>98</strong></td><td><strong>95</strong></td><td><strong>27</strong></td><td><strong>64.8</strong></td></tr>
+                            <tr>
+                                <td>ACT + eVGGT</td>
+                                <td>7</td>
+                                <td>2</td>
+                                <td>20</td>
+                                <td>10</td>
+                                <td>14</td>
+                                <td>10.6</td>
+                            </tr>
+                            <tr>
+                                <td>DP + eVGGT</td>
+                                <td>18</td>
+                                <td>14</td>
+                                <td>52</td>
+                                <td>26</td>
+                                <td>20</td>
+                                <td>26.0</td>
+                            </tr>
+                            <tr>
+                                <td>DP3</td>
+                                <td>8</td>
+                                <td>10</td>
+                                <td>62</td>
+                                <td>18</td>
+                                <td>15</td>
+                                <td>22.6</td>
+                            </tr>
+                            <tr>
+                                <td>RDT</td>
+                                <td>9</td>
+                                <td>12</td>
+                                <td>50</td>
+                                <td>20</td>
+                                <td>20</td>
+                                <td>22.2</td>
+                            </tr>
+                            <tr>
+                                <td>ManiFlow</td>
+                                <td>31</td>
+                                <td>65</td>
+                                <td>96</td>
+                                <td>72</td>
+                                <td class="best-cell"><strong>44</strong></td>
+                                <td>61.6</td>
+                            </tr>
+                            <tr class="best-row">
+                                <td><strong>Ours</strong></td>
+                                <td><strong>37</strong></td>
+                                <td><strong>67</strong></td>
+                                <td><strong>98</strong></td>
+                                <td><strong>95</strong></td>
+                                <td>27</td>
+                                <td><strong>64.8</strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- ManiSkill2 -->
-            <div class="table-block">
-                <h3 class="table-title">ManiSkill2 Benchmark <span class="table-subtitle">Success Rate (%)</span></h3>
+            <!-- ManiSkill2 videos (3-col grid) then table below -->
+            <h3 class="subsection-title" style="margin-top: 36px;">ManiSkill2</h3>
+            <div class="video-grid-3">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/pickcube.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Pick Cube</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/stack.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Stack Cube</p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/5.sim_exp/peg.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label">Peg Insertion</p>
+                </div>
+            </div>
+            <div class="table-block" style="margin-top: 16px;">
+                <h4 class="table-title">ManiSkill2 <span class="table-subtitle">Success Rate (%)</span></h4>
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -250,11 +612,51 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>DP + SPuNet</td><td>71</td><td>4</td><td>82</td><td>9</td><td>1</td><td>33.4</td></tr>
-                            <tr><td>DP + PointNet</td><td>70</td><td>0</td><td>83</td><td>16</td><td>1</td><td>34.0</td></tr>
-                            <tr><td>ACT + PonderV2</td><td>87</td><td>35</td><td>65</td><td>23</td><td>2</td><td>42.4</td></tr>
-                            <tr><td>DP3</td><td>57</td><td>14</td><td>41</td><td>3</td><td>0</td><td>23.0</td></tr>
-                            <tr class="best-row"><td><strong>Ours</strong></td><td><strong>97</strong></td><td><strong>24</strong></td><td><strong>97</strong></td><td><strong>75</strong></td><td><strong>21</strong></td><td><strong>55.2</strong></td></tr>
+                            <tr>
+                                <td>DP + SPuNet</td>
+                                <td>71</td>
+                                <td>4</td>
+                                <td>82</td>
+                                <td>9</td>
+                                <td>1</td>
+                                <td>33.4</td>
+                            </tr>
+                            <tr>
+                                <td>DP + PointNet</td>
+                                <td>70</td>
+                                <td>0</td>
+                                <td>83</td>
+                                <td>16</td>
+                                <td>1</td>
+                                <td>34.0</td>
+                            </tr>
+                            <tr>
+                                <td>ACT + PonderV2</td>
+                                <td>87</td>
+                                <td class="best-cell"><strong>35</strong></td>
+                                <td>65</td>
+                                <td>23</td>
+                                <td>2</td>
+                                <td>42.4</td>
+                            </tr>
+                            <tr>
+                                <td>DP3</td>
+                                <td>57</td>
+                                <td>14</td>
+                                <td>41</td>
+                                <td>3</td>
+                                <td>0</td>
+                                <td>23.0</td>
+                            </tr>
+                            <tr class="best-row">
+                                <td><strong>Ours</strong></td>
+                                <td><strong>97</strong></td>
+                                <td>24</td>
+                                <td><strong>97</strong></td>
+                                <td><strong>75</strong></td>
+                                <td><strong>21</strong></td>
+                                <td><strong>55.2</strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -264,17 +666,71 @@
 
     <hr class="section-divider">
 
-    <!-- Real-World Results -->
-    <section class="section" id="realworld">
+    <!-- ===================== 6. REAL-WORLD EXPERIMENTS ===================== -->
+    <section class="section" id="real-exp">
         <div class="container">
-            <h2 class="section-title">🤖 Real-World Experiments</h2>
+            <h2 class="section-title">Real-World Experiments</h2>
             <p class="body-text centered">
-                We evaluate R3D on three real-world tasks using an xArm6 robot with two Intel RealSense D435 cameras (eye-to-hand + eye-in-hand). Each task tests different aspects of 3D spatial understanding. Each method is evaluated over 50 trials.
+                xArm6 robot with two Intel RealSense D435 cameras (eye-to-hand + eye-in-hand). Point clouds subsampled
+                to 8,192 points. Each method evaluated over 50 trials.
             </p>
 
-            <!-- Real-World Results Table -->
-            <div class="table-block">
-                <h3 class="table-title">Real-World Results <span class="table-subtitle">Success Rate (%)</span></h3>
+            <!-- 6 task videos in 3×2 grid -->
+            <div class="video-grid-3" style="margin-top: 28px;">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/6.real_exp/ours-task1-success-1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label"><strong>Place Kettle</strong></p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/6.real_exp/ours-task2-success-1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label"><strong>Open Drawer</strong></p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/6.real_exp/ours-task3-success-1.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label"><strong>Fold Towel</strong></p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/6.real_exp/episode_000001_cam_right.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label"><strong>Place Cup</strong></p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/6.real_exp/episode_000003_cam_left.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label"><strong>Stack Three Blocks</strong>
+                    </p>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                            <source src="assets/6.real_exp/episode_000041_cam_right.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <p class="video-label"><strong>Fit Banana</strong> — <span class="success-rate">66%</span></p>
+                </div>
+            </div>
+
+            <!-- Main real-world table -->
+            <div class="table-block" style="margin-top: 16px;">
+                <h4 class="table-title">Real-World Results <span class="table-subtitle">Success Rate (%)</span></h4>
                 <div class="table-scroll">
                     <table>
                         <thead>
@@ -288,42 +744,211 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td>Place Kettle on Stove</td><td>64</td><td>46</td><td>40</td><td>36</td><td class="best-cell"><strong>76</strong></td></tr>
-                            <tr><td>Open Drawer</td><td>46</td><td>48</td><td>28</td><td>46</td><td class="best-cell"><strong>64</strong></td></tr>
-                            <tr><td>Fold Towel</td><td>36</td><td>62</td><td>54</td><td>60</td><td class="best-cell"><strong>66</strong></td></tr>
-                            <tr class="best-row"><td><strong>Average</strong></td><td>48.7</td><td>52.0</td><td>40.7</td><td>47.3</td><td><strong>68.7</strong></td></tr>
+                            <tr>
+                                <td>Place Kettle</td>
+                                <td>64</td>
+                                <td>46</td>
+                                <td>40</td>
+                                <td>36</td>
+                                <td class="best-cell"><strong>76</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Open Drawer</td>
+                                <td>46</td>
+                                <td>48</td>
+                                <td>28</td>
+                                <td>46</td>
+                                <td class="best-cell"><strong>64</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Fold Towel</td>
+                                <td>36</td>
+                                <td>62</td>
+                                <td>54</td>
+                                <td>60</td>
+                                <td class="best-cell"><strong>66</strong></td>
+                            </tr>
+                            <tr class="best-row">
+                                <td><strong>Average</strong></td>
+                                <td>48.7</td>
+                                <td>52.0</td>
+                                <td>40.7</td>
+                                <td>47.3</td>
+                                <td><strong>68.7</strong></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <!-- Video Demos -->
-            <div class="video-section">
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video autoplay loop muted playsinline>
-                            <source src="video/ours-task1-success-3.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <p class="video-label"><strong>Task 1:</strong> Place Kettle on Stove — <span class="success-rate">76%</span></p>
+            <!-- 6.1 Single vs Two View -->
+            <div class="subsection" id="single-two-view" style="margin-top: 52px;">
+                <h3 class="subsection-title">Single Camera View vs. Two Camera Views</h3>
+                <div class="auto-video-wrapper" style="width: 100%; margin: 20px auto 0;">
+                    <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                        <source src="assets/6.real_exp/1. single view vs two view/singlevstwo.mp4" type="video/mp4">
+                    </video>
                 </div>
-
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video autoplay loop muted playsinline>
-                            <source src="video/ours-task2-success-4.mp4" type="video/mp4">
-                        </video>
+                <p class="figure-caption" style="margin-top: 10px; margin-bottom: 20px;">Our spatially-aware design
+                    better exploits multi-view geometry while maintaining strong single-view performance.</p>
+                <div class="table-block">
+                    <h4 class="table-title">Single vs. Two Views <span class="table-subtitle">Success Rate (%)</span>
+                    </h4>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Task</th>
+                                    <th colspan="2">DP</th>
+                                    <th colspan="2">DP3</th>
+                                    <th colspan="2">ManiFlow</th>
+                                    <th colspan="2">Ours</th>
+                                </tr>
+                                <tr>
+                                    <th>1-view</th>
+                                    <th>2-view</th>
+                                    <th>1-view</th>
+                                    <th>2-view</th>
+                                    <th>1-view</th>
+                                    <th>2-view</th>
+                                    <th>1-view</th>
+                                    <th>2-view</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Place Kettle</td>
+                                    <td>28</td>
+                                    <td>64</td>
+                                    <td>18</td>
+                                    <td>40</td>
+                                    <td>20</td>
+                                    <td>36</td>
+                                    <td class="best-cell"><strong>40</strong></td>
+                                    <td class="best-cell"><strong>76</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Open Drawer</td>
+                                    <td>36</td>
+                                    <td>46</td>
+                                    <td>12</td>
+                                    <td>28</td>
+                                    <td>40</td>
+                                    <td>46</td>
+                                    <td class="best-cell"><strong>52</strong></td>
+                                    <td class="best-cell"><strong>64</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Fold Towel</td>
+                                    <td>28</td>
+                                    <td>36</td>
+                                    <td>48</td>
+                                    <td>54</td>
+                                    <td>54</td>
+                                    <td>60</td>
+                                    <td class="best-cell"><strong>62</strong></td>
+                                    <td class="best-cell"><strong>66</strong></td>
+                                </tr>
+                                <tr class="best-row">
+                                    <td><strong>Avg.</strong></td>
+                                    <td>30.7</td>
+                                    <td>48.7</td>
+                                    <td>26.0</td>
+                                    <td>40.7</td>
+                                    <td>38.0</td>
+                                    <td>47.3</td>
+                                    <td><strong>51.3</strong></td>
+                                    <td><strong>68.7</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <p class="video-label"><strong>Task 2:</strong> Open Drawer — <span class="success-rate">64%</span></p>
                 </div>
+            </div>
 
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video autoplay loop muted playsinline>
-                            <source src="video/ours-task3-success-2.mp4" type="video/mp4">
-                        </video>
+            <!-- 6.2 Disco Light -->
+            <div class="subsection" id="disco-light" style="margin-top: 52px;">
+                <h3 class="subsection-title">Robustness to Dynamic Lighting</h3>
+                <div class="auto-video-wrapper" style="width: 100%; margin: 20px auto 0;">
+                    <video class="autoplay-scroll" loop muted playsinline preload="metadata">
+                        <source src="assets/6.real_exp/2. disco/disco.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <p class="figure-caption" style="margin-top: 10px; margin-bottom: 20px;">Disco lighting changes scene
+                    colors dynamically during evaluation. Our color jitter augmentation provides strong robustness to
+                    such variations.</p>
+                <div class="table-block">
+                    <h4 class="table-title">Normal vs. Disco Light <span class="table-subtitle">Success Rate (%)</span>
+                    </h4>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Task</th>
+                                    <th colspan="2">DP</th>
+                                    <th colspan="2">DP3</th>
+                                    <th colspan="2">ManiFlow</th>
+                                    <th colspan="2">Ours</th>
+                                </tr>
+                                <tr>
+                                    <th>Nor.</th>
+                                    <th>Disc.</th>
+                                    <th>Nor.</th>
+                                    <th>Disc.</th>
+                                    <th>Nor.</th>
+                                    <th>Disc.</th>
+                                    <th>Nor.</th>
+                                    <th>Disc.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Place Kettle</td>
+                                    <td>64</td>
+                                    <td>44</td>
+                                    <td>40</td>
+                                    <td>32</td>
+                                    <td>36</td>
+                                    <td>32</td>
+                                    <td class="best-cell"><strong>76</strong></td>
+                                    <td class="best-cell"><strong>58</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Open Drawer</td>
+                                    <td>46</td>
+                                    <td>34</td>
+                                    <td>28</td>
+                                    <td>22</td>
+                                    <td>46</td>
+                                    <td>36</td>
+                                    <td class="best-cell"><strong>64</strong></td>
+                                    <td class="best-cell"><strong>56</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Fold Towel</td>
+                                    <td>36</td>
+                                    <td>32</td>
+                                    <td>54</td>
+                                    <td>38</td>
+                                    <td>60</td>
+                                    <td>54</td>
+                                    <td class="best-cell"><strong>66</strong></td>
+                                    <td class="best-cell"><strong>62</strong></td>
+                                </tr>
+                                <tr class="best-row">
+                                    <td><strong>Avg.</strong></td>
+                                    <td>48.7</td>
+                                    <td>36.7</td>
+                                    <td>40.7</td>
+                                    <td>30.7</td>
+                                    <td>47.3</td>
+                                    <td>40.7</td>
+                                    <td><strong>68.7</strong></td>
+                                    <td><strong>58.7</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <p class="video-label"><strong>Task 3:</strong> Fold Towel — <span class="success-rate">66%</span></p>
                 </div>
             </div>
         </div>
@@ -331,7 +956,265 @@
 
     <hr class="section-divider">
 
-    <!-- BibTeX -->
+    <!-- ===================== 7. ANALYSIS ===================== -->
+    <section class="section" id="analysis">
+        <div class="container">
+            <h2 class="section-title">Scaling and Ablation Study</h2>
+
+            <!-- 7.1 Scaling -->
+            <div class="subsection" id="scaling" style="margin-top: 56px;">
+                <h3 class="subsection-title">Network Scaling</h3>
+                <p class="body-text" style="margin-bottom: 24px;">
+                    ViT-tiny (53MB) is optimal for 1024-point clouds; ViT-small (115MB) is preferred for 8192-point
+                    real-world inputs. Decoder depth of 4 attention blocks offers the best tradeoff.
+                </p>
+
+                <!-- Row 1: decoder depth figure (left) + encoder 1024pt table (right), aligned top, equal height via stretch -->
+                <div class="side-by-side side-stretch">
+                    <div class="side-figure">
+                        <img src="assets/4.improving/1. scaling network and data/decoder_depth_ablation_final-2_cropped.png"
+                            alt="Decoder Depth Ablation" style="height:100%;object-fit:contain;">
+                        <p class="figure-caption" style="text-align:left;padding:0;">Success rates peak at 4–8 attention
+                            blocks; deeper decoders overfit.</p>
+                    </div>
+                    <div class="side-table">
+                        <div class="table-block" style="margin:0;height:100%;">
+                            <h4 class="table-title">Encoder Size — 1024 Points <span class="table-subtitle">Success Rate
+                                    (%)</span></h4>
+                            <div class="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>tiny (53MB)</th>
+                                            <th>small (115MB)</th>
+                                            <th>base (366MB)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Move Playingcard</td>
+                                            <td>85</td>
+                                            <td>92</td>
+                                            <td>83</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Turn Switch</td>
+                                            <td class="best-cell"><strong>56</strong></td>
+                                            <td>55</td>
+                                            <td>50</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place Shoe</td>
+                                            <td class="best-cell"><strong>87</strong></td>
+                                            <td>68</td>
+                                            <td>70</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Open Microwave</td>
+                                            <td class="best-cell"><strong>100</strong></td>
+                                            <td>93</td>
+                                            <td>77</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Beat Block Hammer</td>
+                                            <td class="best-cell"><strong>91</strong></td>
+                                            <td>76</td>
+                                            <td>85</td>
+                                        </tr>
+                                        <tr class="best-row">
+                                            <td><strong>Average</strong></td>
+                                            <td><strong>83.8</strong></td>
+                                            <td>76.8</td>
+                                            <td>73.0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Encoder vs demos (left) + Encoder 8192pt (right) -->
+                <div class="side-by-side side-stretch" style="margin-top: 20px;">
+                    <div class="side-table">
+                        <div class="table-block" style="margin:0;height:100%;">
+                            <h4 class="table-title">Encoder Size vs. Demonstrations <span class="table-subtitle">Avg.
+                                    over 5 Easy tasks</span></h4>
+                            <div class="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Encoder</th>
+                                            <th>50 demos</th>
+                                            <th>100 demos</th>
+                                            <th>200 demos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="best-row">
+                                            <td><strong>PointSAM-tiny</strong></td>
+                                            <td><strong>83.8</strong></td>
+                                            <td><strong>95.3</strong></td>
+                                            <td><strong>97.8</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>PointSAM-small</td>
+                                            <td>76.8</td>
+                                            <td>89.0</td>
+                                            <td>92.4</td>
+                                        </tr>
+                                        <tr>
+                                            <td>PointSAM-base</td>
+                                            <td>73.0</td>
+                                            <td>86.5</td>
+                                            <td>88.2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="side-table">
+                        <div class="table-block" style="margin:0;height:100%;">
+                            <h4 class="table-title">Encoder Size — 8192 Points <span class="table-subtitle">Real-world
+                                    dense setting</span></h4>
+                            <div class="table-scroll">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Task</th>
+                                            <th>tiny (53MB)</th>
+                                            <th>small (115MB)</th>
+                                            <th>base (366MB)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Move Playingcard</td>
+                                            <td>65</td>
+                                            <td class="best-cell"><strong>87</strong></td>
+                                            <td>72</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Turn Switch</td>
+                                            <td>47</td>
+                                            <td>56</td>
+                                            <td class="best-cell"><strong>64</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Place Shoe</td>
+                                            <td>75</td>
+                                            <td>79</td>
+                                            <td class="best-cell"><strong>85</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Open Microwave</td>
+                                            <td>79</td>
+                                            <td class="best-cell"><strong>98</strong></td>
+                                            <td>92</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Beat Block Hammer</td>
+                                            <td>74</td>
+                                            <td class="best-cell"><strong>89</strong></td>
+                                            <td>88</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Average</strong></td>
+                                            <td>68.0</td>
+                                            <td class="best-cell"><strong>81.8</strong></td>
+                                            <td>80.2</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7.2 Ablation -->
+            <div class="subsection" id="ablation" style="margin-top: 52px;">
+                <h3 class="subsection-title">Ablation Study</h3>
+                <p class="body-text" style="margin-bottom: 24px;">
+                    Dense feature conditioning and encoder pretraining are the two primary drivers of performance.
+                    Auxiliary EE prediction provides additional gains.
+                </p>
+
+                <!-- Two learning curve figures side by side -->
+                <div class="side-by-side" style="align-items: flex-start;">
+                    <div class="side-figure">
+                        <img src="assets/4.improving/2. ablation/wandb1_new_cropped.png" alt="Dense vs Global Feature">
+                        <p class="figure-caption" style="text-align:left; padding:0;">(a) Dense vs. global feature
+                            conditioning — dense features yield higher and more stable success rates.</p>
+                    </div>
+                    <div class="side-figure">
+                        <img src="assets/4.improving/2. ablation/wandb2_new_cropped.png" alt="Pretrained vs Scratch">
+                        <p class="figure-caption" style="text-align:left; padding:0;">(b) Pretrained vs.
+                            train-from-scratch encoder — pretraining accelerates convergence significantly.</p>
+                    </div>
+                </div>
+
+                <!-- Ablation Table -->
+                <div class="table-block" style="margin-top: 24px;">
+                    <h4 class="table-title">Component Ablation <span class="table-subtitle">Success Rate (%)</span></h4>
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Method</th>
+                                    <th>Place Shoe</th>
+                                    <th>Move Card</th>
+                                    <th>Beat Hammer</th>
+                                    <th>Turn Switch</th>
+                                    <th>Average</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Pretrained PointSAM (Global Feat.)</td>
+                                    <td>60</td>
+                                    <td>76</td>
+                                    <td>86</td>
+                                    <td>28</td>
+                                    <td>62.50</td>
+                                </tr>
+                                <tr>
+                                    <td>Pretrained PointSAM (Dense Feat.)</td>
+                                    <td class="best-cell"><strong>92</strong></td>
+                                    <td>70</td>
+                                    <td class="best-cell"><strong>94</strong></td>
+                                    <td>54</td>
+                                    <td>77.50</td>
+                                </tr>
+                                <tr>
+                                    <td>Scratch PointSAM (Dense Feat.)</td>
+                                    <td>60</td>
+                                    <td>58</td>
+                                    <td>90</td>
+                                    <td>55</td>
+                                    <td>65.75</td>
+                                </tr>
+                                <tr class="best-row">
+                                    <td><strong>Ours (Pretrained Dense + Aux. EE)</strong></td>
+                                    <td>87</td>
+                                    <td class="best-cell"><strong>85</strong></td>
+                                    <td>91</td>
+                                    <td class="best-cell"><strong>56</strong></td>
+                                    <td><strong>79.75</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===================== CITATION ===================== -->
     <section class="section" id="citation">
         <div class="container narrow">
             <h2 class="section-title">BibTeX</h2>
@@ -339,7 +1222,7 @@
                 <button class="copy-btn" id="copyBibtex" title="Copy to clipboard">
                     <i class="fas fa-copy"></i> Copy
                 </button>
-                <pre id="bibtexCode">@article{r3d2026,
+                <pre id="bibtexCode">@article{hong2026r3d,
   title     = {R3D: Revisiting 3D Policy Learning},
   author    = {Hong, Zhengdong and Wu, Shenrui and Cui, Haozhe and Zhao, Boyi and Ji, Ran and He, Yiyang and Zhang, Hangxing and Ke, Zundong and Wang, Jun and Zhang, Guofeng and Gu, Jiayuan},
   journal   = {arXiv preprint},
@@ -349,13 +1232,14 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>This website template is inspired by <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">Nerfies</a>.</p>
+            <p>This website is inspired by <a href="https://github.com/nerfies/nerfies.github.io"
+                    target="_blank">Nerfies</a>.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

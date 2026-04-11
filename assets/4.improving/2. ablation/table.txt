@@ -1,0 +1,36 @@
+\begin{table*}[]
+    \centering
+    \small 
+    \captionsetup{justification=centering} 
+    \caption{\textbf{Ablation Study on Different Methods and Components~(\%).}}
+    \label{tab:ablation_study_new}
+    
+    % 1. 使用 resizebox 强制限制宽度为 \textwidth
+    % {!} 表示高度随宽度等比例缩放
+    \resizebox{\textwidth}{!}{
+        \renewcommand{\arraystretch}{1.0} % 进一步调小行高倍数
+        \setlength{\tabcolsep}{6pt}      % 稍微恢复点列间距，因为 resizebox 会整体缩小文字
+        
+        \begin{tabular}{l c c c c c} 
+            \toprule
+            \textbf{Methods} & 
+            \textbf{\shortstack[c]{Place \\ Shoe}} & 
+            \textbf{\shortstack[c]{Move \\ Card.}} & 
+            \textbf{\shortstack[c]{Beat \\ Hammer}} & 
+            \textbf{\shortstack[c]{Turn \\ Switch}} & 
+            \textbf{Average} \\
+            \midrule
+            
+            Pretrained PointSAM (Global Feat. Cond.) & 60 & 76 & 86 & 28 & 62.50 \\
+            
+            Pretrained PointSAM (Dense Feat. Cond.) & \cellcolor{myblue}\textbf{92} & 70 & \cellcolor{myblue}\textbf{94} & 54 & 77.50 \\
+            
+            Train-from-Scratch PointSAM (Dense Feat. Cond.) & 60 & 58 & 90 & 55 & 65.75 \\
+            
+            \textbf{(Ours)} Pretrained-PointSAM (Dense) + Aux. EE & 87 & \cellcolor{myblue}\textbf{85} & 91 & \cellcolor{myblue}\textbf{56} & \cellcolor{myblue}\textbf{79.75} \\
+            
+            \bottomrule
+        \end{tabular} 
+    }
+    \vspace{-3em}
+\end{table*}

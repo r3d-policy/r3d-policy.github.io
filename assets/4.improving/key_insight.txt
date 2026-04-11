@@ -1,0 +1,8 @@
+Spatially-Aware Decoding
+Unlike DP3's global feature + FiLM conditioning, our decoder performs cross-attention directly between action queries and dense geometric tokens, preserving spatial resolution for precise manipulation.
+
+3D Encoder Pretraining
+Leveraging the encoder structure from PointSAM, we pretrain on large-scale 3D segmentation datasets (ScanNet, ARKitScenes, PartNeXt), injecting rich geometric priors that accelerate convergence.
+
+Multi-Objective Decoding
+We jointly decode end-effector poses and joint angles with causal attention masking, providing proprioceptive grounding without interfering with primary joint control.
