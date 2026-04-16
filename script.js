@@ -23,7 +23,7 @@ const topVideo = document.getElementById('topVideo');
 if (topVideo) {
     topVideo.setAttribute('playsinline', '');
     topVideo.muted = true;
-    topVideo.play().catch(() => {});
+    topVideo.play().catch(() => { });
 }
 
 // ===== Autoplay-on-scroll for .autoplay-scroll videos =====
@@ -36,7 +36,7 @@ if ('IntersectionObserver' in window && scrollVideos.length > 0) {
             entries.forEach(entry => {
                 const vid = entry.target;
                 if (entry.isIntersecting) {
-                    vid.play().catch(() => {});
+                    vid.play().catch(() => { });
                 } else {
                     vid.pause();
                 }
@@ -57,6 +57,15 @@ if ('IntersectionObserver' in window && scrollVideos.length > 0) {
     scrollVideos.forEach(vid => {
         vid.muted = true;
         vid.setAttribute('playsinline', '');
-        vid.play().catch(() => {});
+        vid.play().catch(() => { });
     });
 }
+window.addEventListener('load', () => {
+    // Small delay to ensure layout is stable and let the user see the banner briefly
+    setTimeout(() => {
+        const heroSection = document.getElementById('hero');
+        if (heroSection) {
+            heroSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, 1600);
+});
