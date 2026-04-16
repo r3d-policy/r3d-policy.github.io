@@ -60,12 +60,12 @@ if ('IntersectionObserver' in window && scrollVideos.length > 0) {
         vid.play().catch(() => { });
     });
 }
-window.addEventListener('load', () => {
-    // Small delay to ensure layout is stable and let the user see the banner briefly
-    setTimeout(() => {
-        const heroSection = document.getElementById('hero');
-        if (heroSection) {
-            heroSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, 2000);
-});
+// window.addEventListener('load', () => {
+//     // Small delay to ensure layout is stable and let the user see the banner briefly
+//     setTimeout(() => {
+//         const heroSection = document.getElementById('hero');
+//         if (heroSection) {
+//             heroSection.scrollIntoView({ behavior: 'smooth' });
+//         }
+//     }, 2000);
+// });
