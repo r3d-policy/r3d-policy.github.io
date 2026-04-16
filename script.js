@@ -67,5 +67,5 @@ window.addEventListener('load', () => {
         if (heroSection) {
             heroSection.scrollIntoView({ behavior: 'smooth' });
         }
-    }, 1600);
+    }, 5000);
 });
